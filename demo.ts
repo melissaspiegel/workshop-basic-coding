@@ -19,9 +19,25 @@ var createHelloWorld = function() {
  * @param {integer} init
  * @return { increment: Function, decrement: Function, reset: Function }
  */
-var createCounter = function(init) {
-    
+/**
+ * @param {number} n
+ * @return {Function} counter
+ */
+var createCounter = function(n) {
+    let count = n; // belongs to the lexical environment of createCounter
+    if(count < 1000)
+    return function() {  // this inner function closes over `count`
+        return count ++;
+
+    };
 };
+
+/** 
+ * const counter = createCounter(10)
+ * counter() // 10
+ * counter() // 11
+ * counter() // 12
+ */
 
 /**
  * const counter = createCounter(5)
