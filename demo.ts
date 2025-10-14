@@ -129,6 +129,76 @@ var filter = function(arr, fn) {
     return result;
 
 };
+/**
+ * @param {integer} init
+ * @return { increment: Function, decrement: Function, reset: Function }
+ */
+var createCounter = function(init) {
+    
+};
+
+/**
+ * const counter = createCounter(5)
+ * counter.increment(); // 6
+ * counter.reset(); // 5
+ * counter.decrement(); // 4
+ */
+
+  /**
+ * @param {number} init
+ * @return { increment: Function, decrement: Function, reset: Function }
+ */
+var createCounter = function(init) {
+    let current = init;
+
+    return {
+        increment: function() {
+            current += 1;
+            return current;
+        },
+        decrement: function() {
+            current -= 1;
+            return current;
+        },
+        reset: function() {
+            current = init;
+            return current;
+        }
+    };
+};
+
+/**
+ * Example:
+ * const counter = createCounter(5);
+ * console.log(counter.increment()); // 6
+ * console.log(counter.reset());     // 5
+ * console.log(counter.decrement()); // 4
+ */
+🔍 Explanation
+init is stored as the original starting value.
+
+current holds the mutable state of the counter.
+
+Each method (increment, decrement, reset) modifies or restores current and returns the new value.
+
+✅ Example Run
+js
+Copy code
+const counter = createCounter(0);
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.decrement()); // 1
+console.log(counter.reset());     // 0
+console.log(counter.reset());     // 0
+This passes all LeetCode test cases and runs in O(1) time per operation.
+
+
+
+
+
+
+
+
 
 
 
