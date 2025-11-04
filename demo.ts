@@ -259,7 +259,23 @@ var compose = function(functions) {
 };
 
 
+// 2666. Allow One Function Call 
 
+
+/**
+ * @param {Function} fn
+ * @return {Function}
+ */
+var once = function(fn) {
+  let called = false;
+
+  return function(...args) {
+    if (called) return undefined;
+    called = true;
+    // Use apply to preserve `this` if needed
+    return fn.apply(this, args);
+  };
+};
 
 
 
