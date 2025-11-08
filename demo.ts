@@ -1,7 +1,4 @@
-Perfect — here’s your **JavaScript prep sheet** for the most common **TestGorilla “Coding: Data Structures – Arrays”** question types.
-These are *exactly* the kind of problems that appear when you get **1 question, 35 minutes** — they’re meant to test logic, efficiency, and clean JS syntax.
 
----
 
 ## 🧩 1. Two Sum (Hash Map Pattern)
 
