@@ -1,286 +1,355 @@
-// Create HelloWorld
-// createHelloWorld is a higher-order function — it returns another function.
-/**
- * @return {Function}
- */
+/******************************
+ *  Basics / Closures
+ ******************************/
+
+// 2667. Create Hello World Function
 var createHelloWorld = function() {
   return function(...args) {
     return "Hello World";
   };
 };
 
-/**
- * const f = createHelloWorld();
- * f(); // "Hello World"
- * f(1, 2, 3); // "Hello World"
- */
-
-/**
- * @param {integer} init
- * @return { increment: Function, decrement: Function, reset: Function }
- */
-/**
- *	“Lexical environment” → the set of variables available in a given scope.
- *	“Closure” → the function that retains access to that lexical environment even after the outer function finishes.
- * @param {number} n
- * @return {Function} counter
- */
+// 2620. Counter (single function returning next value)
 var createCounter = function(n) {
-    let count = n; // belongs to the lexical environment of createCounter
-    if(count < 1000)
-    return function() {  // this inner function closes over `count`
-        return count ++;
-
-    };
+  return function() { return n++; };
 };
 
-/** 
- * const counter = createCounter(10)
- * counter() // 10
- * counter() // 11
- * counter() // 12
- */
-
-/**
- * const counter = createCounter(5)
- * counter.increment(); // 6
- * counter.reset(); // 5
- * counter.decrement(); // 4
- */
-
-
-
-// ToBe
-/**
- * @param {any} val
- * @return {Object}
- */
-var expect = function(val) {
-  return {
-    toBe: function(otherVal) {
-      if (val === otherVal) return true;
-      throw new Error("Not Equal");
-    },
-    notToBe: function(otherVal) {
-      if (val !== otherVal) return true;
-      throw new Error("Equal");
-    }
-  };
-};
-
-/**
- * Example usage:
- * const f = () => expect(5).toBe(5);
- * console.log(f()); // true
- * 
- * const g = () => expect(5).notToBe(5);
- * // throws "Equal" 
- */
-
-
-// 2635. Apply Transform Over Each Element in Array
-// https://leetcode.com/problems/apply-transform-over-each-element-in-array/?envType=study-plan-v2&envId=30-days-of-javascript
-/** start
- * @param {number[]} arr
- * @param {Function} fn
- * @return {number[]}
- */
-var map = function(arr, fn) {
-    
-};
-
-/**END
- * @param {number[]} arr
- * @param {Function} fn
- * @return {number[]}
- */
-var map = function(arr, fn) {
-  const result = [];
-
-  for (let i = 0; i < arr.length; i++) {
-    result.push(fn(arr[i], i)); // call fn on each element
-  }
-
-  return result;
-};
-
-
-// Filter
-/**Start
- * @param {number[]} arr
- * @param {Function} fn
- * @return {number[]}
- */
-var filter = function(arr, fn) {
-    
-};
-/**END
- * @param {number[]} arr
- * @param {Function} fn
- * @return {number[]}
- */
-var filter = function(arr, fn) {
-    const result = [];
-    for(let i = 0; i < arr.length; i++){
-        if (fn(arr[i], i)) {     // if fn returns truthy for this element
-      result.push(arr[i]);   // keep it
-    }
-    
-    return result;
-
-};
-/**
- * @param {integer} init
- * @return { increment: Function, decrement: Function, reset: Function }
- */
-var createCounter = function(init) {
-    
-};
-
-/**
- * const counter = createCounter(5)
- * counter.increment(); // 6
- * counter.reset(); // 5
- * counter.decrement(); // 4
- */
-
-  /**
- * @param {number} init
- * @return { increment: Function, decrement: Function, reset: Function }
- */
-var createCounter = function(init) {
-    let current = init;
-
-    return {
-        increment: function() {
-            current += 1;
-            return current;
-        },
-        decrement: function() {
-            current -= 1;
-            return current;
-        },
-        reset: function() {
-            current = init;
-            return current;
-        }
-    };
-};
-
-/**
- * Example:
- * const counter = createCounter(5);
- * console.log(counter.increment()); // 6
- * console.log(counter.reset());     // 5
- * console.log(counter.decrement()); // 4
- */
-🔍 Explanation
-init is stored as the original starting value.
-
-current holds the mutable state of the counter.
-
-Each method (increment, decrement, reset) modifies or restores current and returns the new value.
-
-✅ Example Run
-js
-Copy code
-const counter = createCounter(0);
-console.log(counter.increment()); // 1
-console.log(counter.increment()); // 2
-console.log(counter.decrement()); // 1
-console.log(counter.reset());     // 0
-console.log(counter.reset());     // 0
-This passes all LeetCode test cases and runs in O(1) time per operation.
-
-
-
-
-
-
-// 2665. Counter II
-  /**
- * @param {number} init
- * @return {{increment: Function, decrement: Function, reset: Function}}
- */
-/**
- * @param {number} init
- * @return {{ increment: Function, decrement: Function, reset: Function }}
- */
+// 2665. Counter II (object with methods)
 var createCounter = function(init) {
   let current = init;
-
   return {
-    increment: function() {
-      current++;
-      return current;
-    },
-
-    decrement: function() {
-      current--;
-      return current;
-    },
-
-    reset: function() {
-      current = init;
-      return current;
-    }
+    increment() { return ++current; },
+    decrement() { return --current; },
+    reset()     { current = init; return current; }
   };
 };
 
-/**
- * const counter = createCounter(5)
- * counter.increment(); // 6
- * counter.reset();     // 5
- * counter.decrement(); // 4
- */;
+// 2703. Return Length of Arguments Passed
+var argumentsLength = function(...args) { return args.length; };
 
-/**
- * Example usage:
- * const counter = createCounter(5);
- * console.log(counter.increment()); // 6
- * console.log(counter.reset());     // 5
- * console.log(counter.decrement()); // 4
- */
-
-
-/**
- * @param {Function[]} functions
- * @return {Function} 2629. Function Composition
- */
-var compose = function(functions) {
-    
-    return function(x) {
-       let res = x;
-       for (let i = functions.length - 1; i >= 0; i--) {
-        res = functions[i](res);
-       }
-       return res;
-    }
+// 2704. To Be Or Not To Be
+var expect = function(val) {
+  return {
+    toBe(other) { if (val === other) return true; throw new Error("Not Equal"); },
+    notToBe(other) { if (val !== other) return true; throw new Error("Equal"); }
+  };
 };
 
 
-// 2666. Allow One Function Call 
+/******************************
+ *  Array transforms
+ ******************************/
+
+// 2635. Map
+var map = function(arr, fn) {
+  const out = [];
+  for (let i = 0; i < arr.length; i++) out.push(fn(arr[i], i));
+  return out;
+};
+
+// 2634. Filter
+var filter = function(arr, fn) {
+  const out = [];
+  for (let i = 0; i < arr.length; i++) if (fn(arr[i], i)) out.push(arr[i]);
+  return out;
+};
+
+// 2626. Reduce Transformation
+var reduce = function(nums, fn, init) {
+  let acc = init;
+  for (let i = 0; i < nums.length; i++) acc = fn(acc, nums[i]);
+  return acc;
+};
+
+// 2677. Chunk Array
+var chunk = function(arr, size) {
+  const res = [];
+  for (let i = 0; i < arr.length; i += size) res.push(arr.slice(i, i + size));
+  return res;
+};
+
+// 2619. Array Prototype Last
+Array.prototype.last = function() { return this.length ? this[this.length - 1] : -1; };
+
+// 2724. Sort By (stable-ish simple)
+var sortBy = function(arr, fn) {
+  return [...arr].sort((a, b) => {
+    const va = fn(a), vb = fn(b);
+    return va < vb ? -1 : va > vb ? 1 : 0;
+  });
+};
+
+// 2631. Group By
+Array.prototype.groupBy = function(fn) {
+  return this.reduce((acc, item) => {
+    const k = fn(item);
+    (acc[k] ||= []).push(item);
+    return acc;
+  }, {});
+};
+
+// 2722. Join Two Arrays by ID
+var join = function(arr1, arr2) {
+  const map = new Map();
+  for (const o of [...arr1, ...arr2]) {
+    const prev = map.get(o.id) || {};
+    map.set(o.id, { ...prev, ...o });
+  }
+  return [...map.values()].sort((a,b) => a.id - b.id);
+};
+
+// 2625. Flatten Deeply Nested Array
+var flat = function(arr, n) {
+  if (n === 0) return arr.slice();
+  const out = [];
+  for (const el of arr) {
+    if (Array.isArray(el)) out.push(...flat(el, n - 1));
+    else out.push(el);
+  }
+  return out;
+};
+
+// 2705. Compact Object (remove falsy, deep)
+var compactObject = function(obj) {
+  if (!obj) return obj;
+  if (Array.isArray(obj)) return obj.map(compactObject).filter(Boolean);
+  if (typeof obj === 'object') {
+    const res = {};
+    for (const k in obj) {
+      const v = compactObject(obj[k]);
+      if (v) res[k] = v;
+    }
+    return res;
+  }
+  return obj;
+};
+
+// 2727. Is Object Empty
+var isEmpty = function(obj) {
+  if (Array.isArray(obj)) return obj.length === 0;
+  for (const _ in obj) return false;
+  return true;
+};
 
 
-/**
- * @param {Function} fn
- * @return {Function}
- */
+/******************************
+ *  Function utilities
+ ******************************/
+
+// 2629. Function Composition (right-to-left)
+var compose = functions => x => functions.reduceRight((acc, fn) => fn(acc), x);
+
+// 2666. Allow One Function Call
 var once = function(fn) {
-  let called = false;
-
+  let called = false, val;
   return function(...args) {
-    if (called) return undefined;
-    called = true;
-    // Use apply to preserve `this` if needed
-    return fn.apply(this, args);
+    if (!called) { called = true; val = fn.apply(this, args); return val; }
+    return undefined;
+  };
+};
+
+// 2632. Curry
+var curry = function(fn) {
+  return function curried(...args) {
+    return args.length >= fn.length
+      ? fn.apply(this, args)
+      : (...rest) => curried.apply(this, args.concat(rest));
+  };
+};
+
+// 2623. Memoize
+var memoize = function(fn) {
+  const cache = new Map();
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) return cache.get(key);
+    const res = fn.apply(this, args);
+    cache.set(key, res);
+    return res;
   };
 };
 
 
+/******************************
+ *  Timing / Promises
+ ******************************/
+
+// 2621. Sleep
+async function sleep(millis) { return new Promise(r => setTimeout(r, millis)); }
+
+// 2715. Timeout Cancellation
+var cancellable = function(fn, args, t) {
+  const id = setTimeout(() => fn(...args), t);
+  return function cancel() { clearTimeout(id); };
+};
+
+// 2725. Interval Cancellation
+var cancellableInterval = function(fn, args, t) {
+  const id = setInterval(() => fn(...args), t);
+  return function cancel() { clearInterval(id); };
+};
+
+// 2637. Promise Time Limit
+var timeLimit = function(fn, t) {
+  return async function(...args) {
+    return await Promise.race([
+      fn(...args),
+      new Promise((_, rej) => setTimeout(() => rej("Time Limit Exceeded"), t))
+    ]);
+  };
+};
+
+// 2622. Cache With Time Limit
+var TimeLimitedCache = function() {
+  this.map = new Map(); // key -> { value, expire }
+};
+TimeLimitedCache.prototype.set = function(key, value, duration) {
+  const existed = this.map.has(key) && this.map.get(key).expire > Date.now();
+  this.map.set(key, { value, expire: Date.now() + duration });
+  return !!existed;
+};
+TimeLimitedCache.prototype.get = function(key) {
+  const entry = this.map.get(key);
+  if (!entry || entry.expire <= Date.now()) return -1;
+  return entry.value;
+};
+TimeLimitedCache.prototype.count = function() {
+  const now = Date.now();
+  let c = 0;
+  for (const { expire } of this.map.values()) if (expire > now) c++;
+  return c;
+};
+
+// 2721. Execute Asynchronous Functions in Parallel
+var promiseAll = function(functions) {
+  return new Promise((resolve, reject) => {
+    const n = functions.length, results = new Array(n);
+    let done = 0;
+    if (n === 0) return resolve([]);
+    functions.forEach((f, i) => {
+      Promise.resolve().then(f).then(v => {
+        results[i] = v;
+        if (++done === n) resolve(results);
+      }).catch(reject);
+    });
+  });
+};
+
+// 2723. Add Two Promises
+var addTwoPromises = async function(p1, p2) { return await p1 + await p2; };
 
 
+/******************************
+ *  Deep / JSON
+ ******************************/
+
+// 2628. JSON Deep Equal
+var areDeeplyEqual = function(o1, o2) {
+  if (Object.is(o1, o2)) return true;
+  if (typeof o1 !== typeof o2) return false;
+  if (typeof o1 !== 'object' || o1 === null || o2 === null) return false;
+  if (Array.isArray(o1) !== Array.isArray(o2)) return false;
+
+  if (Array.isArray(o1)) {
+    if (o1.length !== o2.length) return false;
+    for (let i = 0; i < o1.length; i++) if (!areDeeplyEqual(o1[i], o2[i])) return false;
+    return true;
+  } else {
+    const k1 = Object.keys(o1), k2 = Object.keys(o2);
+    if (k1.length !== k2.length) return false;
+    for (const k of k1) if (!areDeeplyEqual(o1[k], o2[k])) return false;
+    return true;
+  }
+};
+
+// 2633. Convert Object to JSON String (stringify)
+var jsonStringify = function(object) {
+  if (object === null) return "null";
+  const t = typeof object;
+  if (t === "number" || t === "boolean") return String(object);
+  if (t === "string") return `"${object.replace(/"/g, '\\"')}"`;
+  if (Array.isArray(object)) return `[${object.map(jsonStringify).join(",")}]`;
+  const entries = Object.keys(object).map(k => `"${k}":${jsonStringify(object[k])}`);
+  return `{${entries.join(",")}}`;
+};
 
 
-// Appendix
-// More Examples https://leetcode.com/studyplan/30-days-of-javascript/
+/******************************
+ *  Classes / Patterns
+ ******************************/
+
+// 2694. Event Emitter
+class EventEmitter {
+  constructor() { this.map = new Map(); }
+  subscribe(event, cb) {
+    (this.map.get(event) || this.map.set(event, new Set()).get(event)).add(cb);
+    return { unsubscribe: () => this.map.get(event)?.delete(cb) };
+  }
+  emit(event, args = []) {
+    const cbs = this.map.get(event);
+    if (!cbs) return [];
+    const out = [];
+    for (const cb of [...cbs]) out.push(cb(...args));
+    return out;
+  }
+}
+
+// 2726. Calculator with Method Chaining
+class Calculator {
+  constructor(value) { this.result = value; }
+  add(v){ this.result += v; return this; }
+  subtract(v){ this.result -= v; return this; }
+  multiply(v){ this.result *= v; return this; }
+  divide(v){ this.result /= v; return this; }
+  power(v){ this.result = Math.pow(this.result, v); return this; }
+  getResult(){ return this.result; }
+}
+
+// 2695. Array Wrapper (operator behavior)
+var ArrayWrapper = function(nums) { this.nums = nums; };
+ArrayWrapper.prototype.valueOf = function() {
+  return this.nums.reduce((a, n) => a + n, 0);
+};
+ArrayWrapper.prototype.toString = function() {
+  return "[" + this.nums.join(",") + "]";
+};
+
+
+/******************************
+ *  Classic array merge (Top 150 #88)
+ ******************************/
+var merge = function(nums1, m, nums2, n) {
+  let i = m - 1, j = n - 1, k = m + n - 1;
+  while (j >= 0) {
+    if (i >= 0 && nums1[i] > nums2[j]) nums1[k--] = nums1[i--];
+    else nums1[k--] = nums2[j--];
+  }
+};
+
+
+/******************************
+ *  Debounce / Throttle (handy IRL)
+ ******************************/
+
+// Debounce
+function debounce(fn, t) {
+  let id = null;
+  return function(...args) {
+    if (id) clearTimeout(id);
+    id = setTimeout(() => fn.apply(this, args), t);
+  };
+}
+
+// Throttle (trailing)
+function throttle(fn, t) {
+  let id = null, lastArgs = null;
+  return function(...args) {
+    lastArgs = args;
+    if (id) return;
+    id = setTimeout(() => {
+      fn.apply(this, lastArgs);
+      id = null;
+      lastArgs = null;
+    }, t);
+  };
+}
