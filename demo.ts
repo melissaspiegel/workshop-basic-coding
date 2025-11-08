@@ -1,3 +1,155 @@
+Perfect — here’s your **JavaScript prep sheet** for the most common **TestGorilla “Coding: Data Structures – Arrays”** question types.
+These are *exactly* the kind of problems that appear when you get **1 question, 35 minutes** — they’re meant to test logic, efficiency, and clean JS syntax.
+
+---
+
+## 🧩 1. Two Sum (Hash Map Pattern)
+
+**Goal:** Find two indices whose numbers sum to a target.
+
+```js
+function twoSum(nums, target) {
+  const map = new Map(); // value -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+    map.set(nums[i], i);
+  }
+
+  return []; // no solution
+}
+
+// Example:
+console.log(twoSum([2,7,11,15], 9)); // [0,1]
+```
+
+**Time:** O(n) **Space:** O(n)
+
+---
+
+## 🔁 2. Remove Duplicates from Sorted Array (Two Pointers)
+
+**Goal:** Modify the array *in place* to remove duplicates.
+
+```js
+function removeDuplicates(nums) {
+  if (nums.length === 0) return 0;
+  let write = 1;
+
+  for (let read = 1; read < nums.length; read++) {
+    if (nums[read] !== nums[read - 1]) {
+      nums[write++] = nums[read];
+    }
+  }
+  return write; // length of unique portion
+}
+
+// Example:
+let arr = [1,1,2,2,3];
+console.log(removeDuplicates(arr)); // 3 (unique: [1,2,3])
+```
+
+**Time:** O(n) **Space:** O(1)
+
+---
+
+## 🚚 3. Move Zeroes (In-Place Reorder)
+
+**Goal:** Move all zeroes to the end while keeping order.
+
+```js
+function moveZeroes(nums) {
+  let write = 0;
+
+  for (let read = 0; read < nums.length; read++) {
+    if (nums[read] !== 0) {
+      [nums[write], nums[read]] = [nums[read], nums[write]];
+      write++;
+    }
+  }
+  return nums;
+}
+
+// Example:
+console.log(moveZeroes([0,1,0,3,12])); // [1,3,12,0,0]
+```
+
+**Time:** O(n) **Space:** O(1)
+
+---
+
+## ⚙️ 4. Product of Array Except Self (Prefix/Suffix)
+
+**Goal:** Return an array `res[i] = product of all nums except nums[i]` without using division.
+
+```js
+function productExceptSelf(nums) {
+  const res = Array(nums.length).fill(1);
+
+  let prefix = 1;
+  for (let i = 0; i < nums.length; i++) {
+    res[i] = prefix;
+    prefix *= nums[i];
+  }
+
+  let suffix = 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    res[i] *= suffix;
+    suffix *= nums[i];
+  }
+
+  return res;
+}
+
+// Example:
+console.log(productExceptSelf([1,2,3,4])); // [24,12,8,6]
+```
+
+**Time:** O(n) **Space:** O(1) (excluding output)
+
+---
+
+## 📈 5. Maximum Subarray Sum (Kadane’s Algorithm)
+
+**Goal:** Find the contiguous subarray with the largest sum.
+
+```js
+function maxSubArray(nums) {
+  let maxSoFar = nums[0];
+  let current = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    current = Math.max(nums[i], current + nums[i]);
+    maxSoFar = Math.max(maxSoFar, current);
+  }
+
+  return maxSoFar;
+}
+
+// Example:
+console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4])); // 6  (subarray [4,-1,2,1])
+```
+
+**Time:** O(n) **Space:** O(1)
+
+---
+
+## ⚡ Quick Strategy for TestGorilla
+
+* **Read the full prompt** twice — many include constraints like “modify in place” or “return length.”
+* **Add edge-case checks** (`if (!nums.length) return 0;`).
+* **Log sample outputs** to confirm logic before submission.
+* **Aim for O(n)** unless problem clearly needs sorting.
+
+---
+
+Would you like me to turn these into **flashcards** (term on front, code/complexity on back) or a **one-page printable cheat sheet** for you to review before the test?
+
+
+
 /******************************
  *  Basics / Closures
  ******************************/
