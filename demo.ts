@@ -353,3 +353,19 @@ function throttle(fn, t) {
     }, t);
   };
 }
+
+
+
+## git rebase main 
+// Moves your feature branch commits on top of main
+// Cleaner history
+
+// git rebase -i main
+// Interactive mode — lets you squash, edit, or reorder commits
+// git rebase --continue
+// Resume after resolving a conflict
+// git rebase --abort
+// Cancel the rebase and restore previous state
+// git rebase --skip
+// Skip the current conflicting commit
+
